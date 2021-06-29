@@ -1,18 +1,30 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+	<div class="home">
+		<Header />
+		<SearchResults />
+	</div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Header from "../components/global/Header.vue";
+import SearchResults from "../components/SearchResults.vue";
 
 export default {
-  name: "Home",
-  components: {
-    HelloWorld,
-  },
+	name: "Home",
+	components: {
+		Header,
+		SearchResults,
+	},
+	data() {
+		return {};
+	},
+	computed: {
+		...mapState(["SearchData"]),
+	},
+	async created() {
+		await this.$store.dispatch("getSearchData");
+	},
 };
 </script>
